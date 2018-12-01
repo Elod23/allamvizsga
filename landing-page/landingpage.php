@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Coming Soon - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/coming-soon.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="mp4/Pencil.mp4" type="video/mp4">
+    </video>
+
+    <div class="masthead">
+      <div class="masthead-bg"></div>
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-12 my-auto">
+            <div class="masthead-content text-white py-5 py-md-0">
+              <h1 class="mb-3">Üdvözlünk, kedves végzős diák!</h1>
+              <p class="mb-5">Örömmel látjuk, hogy te is gőzerővel írod szakdolgozatod. Reméljük, hogy oldalunk segítségedre lesz eme utad során! További infókért és személyre szabott segítségért kérlek iratkozz fel!</p>
+              <div class="input-group input-group-newsletter">
+             
+              	<?php
+              		session_start();
+              		$conn = mysqli_connect("localhost","root","LeBr0ncav$","projekt_allamvizsga");
+             	?>
+             	<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
+             	 	<div class="input-group-append">
+                  <?php
+                    if (!isset($_POST['email'])) {
+                      $_POST['email'] = '';
+                    }
+                  ?>
+                	<input type="email" class="form-control" id="email" name="email" placeholder="example@server.com" aria-label="Enter email..." aria-describedby="basic-addon" value="<?=($_POST['email']?htmlentities($_POST['email']) : '')?>">
+                	<input type="submit" name="submit" value="Emlékeztess!" />
+                	</div>
+                	<?php
+                		if (isset($_POST['submit'])) {
+                			if (preg_match('/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/',  $_POST['email'] )) {
+                				$query = "INSERT INTO EMLEKEZTETOK(EMAIL) VALUES ('".$_POST['email']."')";
+                       
+                				$result = mysqli_query($conn, $query);
+                        
+                				if($result) {
+                					echo "<p>Ön sikeresen feliratkozott!</p>";
+                				}
+                			}
+                		}
+                	?>
+                </form>
+                <div class="input-group-append">
+                  <button class="btn btn-secondary" type="button"><a href="homepage/fooldal.php"> Tovább!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-icons">
+      <ul class="list-unstyled text-center mb-0">
+      	<li class="list-unstyled-item">
+      		<a href="http://hu.econ.ubbcluj.ro/">
+      			<i class="fas fa-map-marker-alt"></i>
+      		</a>
+      	</li>
+        <li class="list-unstyled-item">
+          <a href="https://www.facebook.com/bbte.kgtk/?__tn__=kC-R&eid=ARACpyP6iGC7ahpZDaMeKUqWLVcaTNl_EqyXE2TSBEP_EXlSxRf6TrK9iNOMOVZhDS7F4GePltjOc0yG&hc_ref=ART0x3eT1kTPiqh-MXfY5OMeLuzZ9WrfrPKg9ogixlMUu4ektXR7Sf7gHnjVtRABIDQ&__xts__[0]=68.ARDx6ra29Xp4JX_dzqfOsgEVb9qzYZr10IfHEZC6olGfie7LAxAnuchpMU1JS8GnLHIr5J6dnSUE1n5EnMNimP5f0CFwKI7oDJcKHtz5IU9WPh2Z4XSVxQA3sGTD79ZxuI5XrTPuNpy1XbkbaRWghP7fVM3EnkqoRNAGmNbQO_tYrhEtepQyFZtUyBVm4BNypYr7OdI6EpXUQc6YZs9DjDKqnDpMvEfsDv1eUZXV3hwVvWIW_5D2mdMs9HL10i1EZIQ40f35haHfeKkZt6WHtq-ofrs4czuOAjjPPswMPr12j8SYtb7qBpRcDBGNFQlaZo7G">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+        <li class="list-unstyled-item">
+          <a href="https://www.instagram.com/bbte.kozgaz/?hl=en">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/coming-soon.min.js"></script>
+
+  </body>
+
+</html>
